@@ -6,99 +6,98 @@ const Login = () => {
   const [isHovered, setIsHovered] = useState(false); // State for hover effect
 
   const handleGoogleLogin = () => {
+    // In a real application, you'd navigate to your backend for Google OAuth
     window.location.href = "http://localhost:8000/auth/google";
   };
 
+  // --- Styles for a Modern and Clean UI ---
+
   const containerStyle = {
-    // height: "90.4vh",
+    // Soft, subtle gradient background for a modern look
+    background: "linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%)",
     minHeight: "90.4vh",
-    // height: "100%",
     display: "flex",
-    flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#2d2d2d",
   };
 
-  const loginBoxStyle = {
-    height: "200px",
+  const loginCardStyle = {
+    // A clean, elevated card for the login form
+    backgroundColor: "#ffffff",
+    padding: "40px 50px",
+    borderRadius: "15px",
+    boxShadow: "0 10px 30px rgba(0, 0, 0, 0.1)", // Soft, deep shadow
     display: "flex",
-    backgroundColor: "#2d2d2d",
     flexDirection: "column",
-    justifyContent: "space-between",
-    padding: "20px",
-    border: "1px solid #fcaaa8", // Border color
-    borderRadius: "10px",
-    boxShadow: "10px 10px 10px #5c4242",
-    zIndex: "999",
+    alignItems: "center",
+    maxWidth: "400px",
+    width: "100%",
+    gap: "30px", // Spacing between elements
   };
 
   const titleStyle = {
-    fontSize: "50px",
-    fontFamily: "Oswald, sans-serif", // Font family
-    color: "#fcaaa8", // Text color
+    // Clean, dark title
+    fontSize: "2.5rem",
+    fontWeight: "600",
+    fontFamily: "Arial, sans-serif",
+    color: "#333333",
+    marginBottom: "10px",
+  };
+
+  const subtitleStyle = {
+    // Subtext for context
+    fontSize: "1rem",
+    color: "#777777",
+    marginBottom: "20px",
     textAlign: "center",
   };
 
-  const buttonContainerStyle = {
+  const googleButtonStyle = {
+    // Prominent, branded Google button
+    backgroundColor: "#4285F4", // Google Blue
+    color: "#fff",
+    fontFamily: "Roboto, sans-serif",
+    border: "none",
+    padding: "12px 25px",
+    borderRadius: "8px",
+    cursor: "pointer",
+    fontSize: "1.1rem",
+    fontWeight: "500",
     display: "flex",
+    alignItems: "center",
+    gap: "10px",
+    transition: "background-color 0.3s ease, transform 0.1s ease",
+    width: "100%", // Full width of the card
     justifyContent: "center",
   };
 
-  const buttonStyle = {
-    backgroundColor: "#f56664", // Button background color
-    color: "#fff", // Button text color
-    fontFamily: "Montserrat",
-    border: "none",
-    padding: "10px 20px",
-    borderRadius: "5px",
-    cursor: "pointer",
+  const googleButtonHoverStyle = {
+    // Darker blue on hover
+    backgroundColor: "#357ae8",
+    transform: "translateY(-1px)", // Subtle lift effect
   };
 
-  const hoverButtonStyle = {
-    backgroundColor: "#fff", // Button background color on hover
-    color: "#f56664", // Button text color on hover
-    fontFamily: "Montserrat",
-    border: "none",
-    padding: "10px 20px",
-    borderRadius: "5px",
-    cursor: "pointer",
-    transition: "background-color 0.5s ease-in-out", // Transition effect
-  };
-
-  const imageStyle = {
-    position: "absolute",
-    left: "10px", // Position the above image to the left
-    top: "80px", // Add some space from the top
-    width: "400px",
-    marginBottom: "20px", // Add margin bottom to create space between image and login box
-  };
-
-  const imageBelowStyle = {
-    position: "absolute",
-    right: "10px", // Position the below image to the right
-    bottom: "50px", // Add some space from the bottom
-    width: "400px",
-    marginBottom: "20px", // Add margin bottom to create space between image and login box
+  const finalButtonStyle = {
+    ...googleButtonStyle,
+    ...(isHovered ? googleButtonHoverStyle : {}),
   };
 
   return (
     <div style={containerStyle}>
-      <img src={"/assets/images/1.png"} alt="Above Image" style={imageStyle} />
-      <div style={loginBoxStyle}>
-        <h1 style={titleStyle}>LOGIN</h1>
-        <div style={buttonContainerStyle}>
-          <Button
-            style={isHovered ? hoverButtonStyle : buttonStyle} // Apply style based on hover state
-            onMouseEnter={() => setIsHovered(true)} // Set hover state to true on mouse enter
-            onMouseLeave={() => setIsHovered(false)} // Set hover state to false on mouse leave
-            onClick={handleGoogleLogin}
-          >
-            <FaGoogle /> Login with Google
-          </Button>
-        </div>
+      <div style={loginCardStyle}>
+        <h1 style={titleStyle}>Welcome Back</h1>
+        <p style={subtitleStyle}>
+          Sign in to SkillSwap to continue learning and trading skills.
+        </p>
+        <Button
+          style={finalButtonStyle}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          onClick={handleGoogleLogin}
+        >
+          <FaGoogle style={{ fontSize: "1.2rem" }} /> Sign in with Google
+        </Button>
       </div>
-      <img src={"/assets/images/2.png"} alt="Below Image" style={imageBelowStyle} />
     </div>
   );
 };

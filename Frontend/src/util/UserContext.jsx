@@ -1,20 +1,15 @@
 import React, { useState, useEffect, createContext, useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const UserContext = createContext();
 
 const UserContextProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-
+  const [user, setUser] = useState(null); 
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    const handleUrlChange = () => {
-      // Your logic to run when there is a change in the URL
-      console.log("URL has changed:", window.location.href);
-    };
-    window.addEventListener("popstate", handleUrlChange);
+    // Load user from localStorage if available
     const userInfoString = localStorage.getItem("userInfo");
     if (userInfoString) {
       try {
@@ -22,25 +17,54 @@ const UserContextProvider = ({ children }) => {
         setUser(userInfo);
       } catch (error) {
         console.error("Error parsing userInfo:", error);
-      }
-    } else {
-      const temp = window.location.href.split("/");
-      const url = temp.pop();
-      console.log("url", url);
-      if (url !== "about_us" && url !== "#why-skill-swap" && url !== "" && url !== "discover" && url !== "register") {
-        navigate("/login");
+        localStorage.removeItem("userInfo");
+        setUser(null);
       }
     }
-    return () => {
-      window.removeEventListener("popstate", handleUrlChange);
-    };
-  }, [window.location.href]);
+  }, []);
 
-  return <UserContext.Provider value={{ user, setUser }}>{children}</UserContext.Provider>;
+  useEffect(() => {
+    // Protect routes that require login
+    const publicPaths = ["/login", "/register", "/about_us", "/discover", "/"];
+    const currentPath = location.pathname;
+
+    if (!publicPaths.includes(currentPath) && !user) {
+      navigate("/login");
+    }
+  }, [location.pathname, navigate, user]);
+
+  // Login helper
+  const login = (userData) => {
+    setUser(userData);
+    localStorage.setItem("userInfo", JSON.stringify(userData));
+  };
+
+  // Logout helper
+  const logout = async () => {
+  try {
+    await axios.get("/auth/logout"); // backend logout
+  } catch (error) {
+    console.log(error);
+  } finally {
+    localStorage.removeItem("userInfo"); // clear stored user
+    setUser(null); // clear context
+    navigate("/login"); // redirect to login page
+  }
+};
+
+  return (
+    <UserContext.Provider value={{ user, setUser, login, logout }}>
+      {children}
+    </UserContext.Provider>
+  );
 };
 
 const useUser = () => {
-  return useContext(UserContext);
+  const context = useContext(UserContext);
+  if (!context) {
+    throw new Error("useUser must be used within a UserContextProvider");
+  }
+  return context;
 };
 
 export { UserContextProvider, useUser };

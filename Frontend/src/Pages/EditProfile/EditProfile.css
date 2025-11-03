@@ -1,8 +1,9 @@
 .register_page {
+  /* Soft, deep background: Dusty Teal */
   min-height: 80vh;
-  background-color: #013e38;
+  background-color: #3b5b59; /* Changed from #013e38 */
   font-family: Montserrat;
-  color: white;
+  color: #f0f0f0; /* Soft White for contrast */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -10,26 +11,29 @@
 }
 
 .register_section {
-  background-color: #f2f2f2;
-  color: #2d2d2d;
+  /* Light, warm background for the form container */
+  background-color: #f7f3f0; /* Changed from #f2f2f2 (now a soft off-white/beige) */
+  color: #4a4a4a; /* Darker grey for content text */
   min-height: 80vh;
   width: 50%;
-  border: 1px solid black;
-  padding: 20px;
-  border-radius: 10px;
+  border: 1px solid #dcdcdc; /* Lighter border */
+  padding: 30px; /* Increased padding slightly */
+  border-radius: 12px; /* Slightly more rounded corners */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Soft shadow */
 }
 
 .previewForm {
   display: flex;
   flex-direction: column;
-  /* width: 100vw; */
   justify-content: space-between;
+  gap: 20px; /* Added gap for spacing */
 }
 
-/* write media query for max-width medium screen */
+/* media query for max-width medium screen */
 @media (max-width: 768px) {
   .register_section {
     width: 95%;
+    min-height: auto; /* Allow height to adjust on mobile */
   }
   .link {
     display: flex;
@@ -41,7 +45,7 @@
 
 .previewContainer {
   font-family: "Montserrat", sans-serif;
-  color: #2d2d2d;
+  color: #4a4a4a; /* Consistent content color */
   margin-bottom: 20px;
 }
 
@@ -50,15 +54,48 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
+  padding: 8px 0;
+  border-bottom: 1px dashed #e0e0e0; /* Softer separator */
 }
 
 .previewLabel {
   flex: 1;
-  font-weight: bold;
-  color: #3bb4a1;
+  font-weight: 600; /* Slightly bolder */
+  color: #719b98; /* Muted accent color: Softer Teal */
 }
 
 .previewValue {
   flex: 2;
   margin-left: 20px;
+  color: #666666; /* Readable gray value */
+}
+
+/* --- Discover Page Specific Adjustments (Based on your component code) --- */
+
+.discover-page {
+  /* Matches the register page background for continuity */
+  background-color: #3b5b59; 
+  min-height: 100vh;
+  padding: 20px 0;
+}
+
+/* Updated color for headings in Discover.js (e.g., "Users For You") */
+/* Replaces the bright #fbf1a4 with a softer gold/yellow */
+.heading-container h1 {
+    color: #ffd88a !important; /* Soft, warm yellow/gold */
+    font-weight: 700;
+}
+
+.content-container {
+    max-width: 1200px; /* Adjust as needed */
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.profile-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 40px;
 }

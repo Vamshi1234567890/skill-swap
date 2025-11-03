@@ -45,4 +45,6 @@ router.route("/discover").get(verifyJWT_username, discoverUsers);
 // send schedule meet email
 router.route("/sendScheduleMeet").post(verifyJWT_username, sendScheduleMeet);
 
+// router.post("/logout", logoutUser);
+
 export default router;

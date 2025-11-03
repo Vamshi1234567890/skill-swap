@@ -50,16 +50,13 @@ export const getRequests = asyncHandler(async (req, res, next) => {
 });
 
 export const acceptRequest = asyncHandler(async (req, res, next) => {
-  console.log("\n******** Inside acceptRequest Controller function ********");
-
-  const { requestId } = req.body;
-  const senderId = req.user._id;
-
-  // console.log("RequestId: ", requestId);
-  // console.log("Sender ID: ", senderId);
-
-  const existingRequest = await Request.find({ sender: requestId, receiver: senderId });
-
+    // ...
+    const { requestId } = req.body; // ⬅️ Expects the sender's ID here
+    const receiverId = req.user._id; 
+    // ...
+    // Finds request where sender = requestId and receiver = receiverId
+    const existingRequest = await Request.findOne({ sender: requestId, receiver: receiverId, status: "Pending" });
+    // ...
   // console.log("Existing Request: ", existingRequest);
 
   if (existingRequest.length === 0) {

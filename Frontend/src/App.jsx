@@ -1,39 +1,61 @@
 import { Route, Routes } from "react-router-dom";
-import Footer from "./Components/Footer/Footer";
-import Discover from "./Pages/Discover/Discover";
-import Login from "./Pages/Login/Login";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+// Components
 import Header from "./Components/Navbar/Navbar";
+import Footer from "./Components/Footer/Footer";
+
+// Pages
 import LandingPage from "./Pages/LandingPage/LandingPage";
+import Login from "./Pages/Login/Login";
+import Register from "./Pages/Register/Register";
+import Discover from "./Pages/Discover/Discover";
 import AboutUs from "./Pages/AboutUs/AboutUs";
 import Chats from "./Pages/Chats/Chats";
 import Report from "./Pages/Report/Report";
 import Profile from "./Pages/Profile/Profile";
-import NotFound from "./Pages/NotFound/NotFound";
-import Register from "./Pages/Register/Register";
 import Rating from "./Pages/Rating/Rating";
 import EditProfile from "./Pages/EditProfile/EditProfile";
+import NotFound from "./Pages/NotFound/NotFound";
+import AdminDashboard from "./Pages/AdminDashboard/AdminDashboard";
+
+// Route Guards
 import PrivateRoutes from "./util/PrivateRoutes";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import AdminRoutes from "./util/AdminRoutes";
 
 const App = () => {
   return (
     <>
       <Header />
       <ToastContainer position="top-right" />
+
       <Routes>
+        {/* ------------------- Private Routes (Login Required) ------------------- */}
         <Route element={<PrivateRoutes />}>
           <Route path="/chats" element={<Chats />} />
+          <Route path="/edit_profile" element={<EditProfile />} />
+          {/* Add more private routes here */}
         </Route>
+
+        {/* ------------------- Admin Routes (Login + isAdmin Required) ------------------- */}
+        <Route element={<AdminRoutes />}>
+          <Route path="/admin" element={<AdminDashboard />} />
+        </Route>
+
+        {/* ------------------- Public Routes ------------------- */}
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/discover" element={<Discover />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/about_us" element={<AboutUs />} />
-        <Route path="/edit_profile" element={<EditProfile />} />
+        <Route path="/discover" element={<Discover />} />
+        <Route path="/about-us" element={<AboutUs />} />
         <Route path="/report/:username" element={<Report />} />
         <Route path="/profile/:username" element={<Profile />} />
         <Route path="/rating/:username" element={<Rating />} />
+        <Route path="/chat/:chatId" element={<Chats />} />
+
+
+        {/* ------------------- 404 Not Found ------------------- */}
         <Route path="*" element={<NotFound />} />
       </Routes>
 
