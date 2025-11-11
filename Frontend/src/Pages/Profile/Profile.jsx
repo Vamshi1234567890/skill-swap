@@ -6,8 +6,6 @@ import { useUser } from "../../util/UserContext";
 import { toast } from "react-toastify";
 import axios from "axios";
 import Spinner from "react-bootstrap/Spinner";
-import { FaComments } from "react-icons/fa";
-
 
 const Profile = () => {
   const { user, setUser } = useUser();
@@ -15,14 +13,13 @@ const Profile = () => {
   const { username } = useParams();
   const [loading, setLoading] = useState(true);
   const [connectLoading, setConnectLoading] = useState(false);
-  const [chatLoading, setChatLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     const getUser = async () => {
       setLoading(true);
       try {
-        const { data } = await axios.get(`/user/registered/getDetails/${username}`);
+        const { data } = await axios.get(`http://localhost:8000/user/registered/getDetails/${username}`);
         setProfileUser(data.data);
       } catch (error) {
         console.log(error);
@@ -31,7 +28,7 @@ const Profile = () => {
           if (error.response.data.message === "Please Login") {
             localStorage.removeItem("userInfo");
             setUser(null);
-            await axios.get("/auth/logout");
+            await axios.get("http://localhost:8000/auth/logout");
             navigate("/login");
           }
         }
@@ -50,7 +47,7 @@ const Profile = () => {
   const connectHandler = async () => {
     try {
       setConnectLoading(true);
-      const { data } = await axios.post(`/request/create`, {
+      const { data } = await axios.post(`http://localhost:8000/request/create`, {
         receiverID: profileUser._id,
       });
       toast.success(data.message);
@@ -61,7 +58,7 @@ const Profile = () => {
         if (error.response.data.message === "Please Login") {
           localStorage.removeItem("userInfo");
           setUser(null);
-          await axios.get("/auth/logout");
+          await axios.get("http://localhost:8000/auth/logout");
           navigate("/login");
         }
       }
@@ -69,27 +66,6 @@ const Profile = () => {
       setConnectLoading(false);
     }
   };
-
-  const startChat = async () => {
-  if (!profileUser) return;
-  try {
-    setChatLoading(true);
-
-    // Check if chat already exists
-    const { data: existingChatData } = await axios.post("/chat/getOrCreate", {
-      users: [user._id, profileUser._id],
-    });
-
-    // Navigate to the existing or newly created chat
-    navigate(`/chat/${existingChatData.data._id}`);
-  } catch (error) {
-    toast.error(error?.response?.data?.message || "Failed to start chat");
-  } finally {
-    setChatLoading(false);
-  }
-};
-
-
 
   return (
     <div
@@ -210,27 +186,6 @@ const Profile = () => {
                           Rate
                         </button>
                       </Link>
-
-                      {/* Chat Button */}
-                      <button
-                        onClick={startChat}
-                        disabled={chatLoading}
-                        style={{
-                          backgroundColor: "#17a2b8",
-                          color: "white",
-                          border: "none",
-                          borderRadius: "8px",
-                          padding: "10px 18px",
-                          fontWeight: "600",
-                          flex: 1,
-                          cursor: "pointer",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                        }}
-                      >
-                        {chatLoading ? <Spinner animation="border" variant="light" size="sm" /> : <><FaComments style={{ marginRight: "6px" }} /> Chat</>}
-                      </button>
                     </div>
                   )}
                 </div>

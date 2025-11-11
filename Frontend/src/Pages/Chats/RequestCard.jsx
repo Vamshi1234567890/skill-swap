@@ -21,7 +21,7 @@ const RequestsPage = () => {
             try {
                 setLoading(true);
                 // 🛑 Ensure this API route exists and populates senderID
-                const { data } = await axios.get(`/request/incoming`); 
+                const { data } = await axios.get(`http://localhost:8000/request/incoming`); 
                 setRequests(data.data); 
             } catch (error) {
                 toast.error(error?.response?.data?.message || "Failed to fetch requests.");
@@ -36,7 +36,7 @@ const RequestsPage = () => {
     const handleAccept = async (requestID, senderName) => {
         try {
             // 🛑 Ensure this API route exists and works (PUT /request/accept/:requestID)
-            const { data } = await axios.put(`/request/accept/${requestID}`);
+            const { data } = await axios.put(`http://localhost:8000/request/accept/${requestID}`);
             
             toast.success(data.message || `Connected with ${senderName}!`);
 
@@ -51,7 +51,7 @@ const RequestsPage = () => {
     const handleReject = async (requestID) => {
         try {
             // 🛑 Ensure this API route exists and works (PUT /request/reject/:requestID)
-            const { data } = await axios.put(`/request/reject/${requestID}`);
+            const { data } = await axios.put(`http://localhost:8000/request/reject/${requestID}`);
             
             toast.info(data.message || "Request rejected.");
 

@@ -52,7 +52,7 @@ const Register = () => {
     setLoading(true);
     const getUser = async () => {
       try {
-        const { data } = await axios.get("/user/unregistered/getDetails");
+        const { data } = await axios.get("http://localhost:8000/user/unregistered/getDetails");
         console.log("User Data: ", data.data);
         
         // Initialize Education array
@@ -361,7 +361,7 @@ const Register = () => {
     if (check) {
       setSaveLoading(true);
       try {
-        await axios.post("/user/unregistered/saveRegDetails", form);
+        await axios.post("http://localhost:8000/user/unregistered/saveRegDetails", form);
         toast.success("Registration details saved successfully");
       } catch (error) {
         console.log(error);
@@ -378,7 +378,7 @@ const Register = () => {
     if (check1 && check2) {
       setSaveLoading(true);
       try {
-        await axios.post("/user/unregistered/saveEduDetail", form);
+        await axios.post("http://localhost:8000/user/unregistered/saveEduDetail", form);
         toast.success("Education details saved successfully");
       } catch (error) {
         console.log(error);
@@ -398,7 +398,7 @@ const Register = () => {
     if (check1 && check2 && check3) {
       setSaveLoading(true);
       try {
-        await axios.post("/user/unregistered/saveAddDetail", form);
+        await axios.post("http://localhost:8000/user/unregistered/saveAddDetail", form);
         toast.success("Additional details saved successfully");
       } catch (error) {
         console.log(error);
@@ -422,7 +422,7 @@ const Register = () => {
           // 💡 CRITICAL: Log data before sending to inspect
           console.log("Submitting final form data:", form); 
           
-          const response = await axios.post("/user/registerUser", form); 
+          const response = await axios.post("http://localhost:8000/user/registerUser", form); 
 
           // 2. Log the user in via context and redirect
           if (response.data.data) {
@@ -487,7 +487,7 @@ const Register = () => {
                     width: "100%",
                   }}
                   value={form.name}
-                  disabled
+                  
                 />
               </div>
               {/* Email */}
@@ -507,7 +507,7 @@ const Register = () => {
                     width: "100%",
                   }}
                   value={form.email}
-                  disabled
+                  
                 />
               </div>
               {/* Username */}

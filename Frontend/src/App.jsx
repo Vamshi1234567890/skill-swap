@@ -19,6 +19,7 @@ import Rating from "./Pages/Rating/Rating";
 import EditProfile from "./Pages/EditProfile/EditProfile";
 import NotFound from "./Pages/NotFound/NotFound";
 import AdminDashboard from "./Pages/AdminDashboard/AdminDashboard";
+import VideoCallPage from './Components/VideoCallPage'
 
 // Route Guards
 import PrivateRoutes from "./util/PrivateRoutes";
@@ -53,6 +54,7 @@ const App = () => {
         <Route path="/profile/:username" element={<Profile />} />
         <Route path="/rating/:username" element={<Rating />} />
         <Route path="/chat/:chatId" element={<Chats />} />
+        <Route path="/video-call/:roomId" element={<VideoCallPage />} />
 
 
         {/* ------------------- 404 Not Found ------------------- */}

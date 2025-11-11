@@ -82,7 +82,7 @@ const EditProfile = () => {
     console.log("Data: ", data);
     try {
       toast.info("Uploading your pic please wait upload confirmation..");
-      const response = await axios.post("/user/uploadPicture", data);
+      const response = await axios.post("http://localhost:8000/user/uploadPicture", data);
       toast.success("Pic uploaded successfully");
       // setPic(response.data.data.url);
       console.log("Pic url:", response.data);
@@ -99,7 +99,7 @@ const EditProfile = () => {
         if (error.response.data.message === "Please Login") {
           localStorage.removeItem("userInfo");
           setUser(null);
-          await axios.get("/auth/logout");
+          await axios.get("http://localhost:8000/auth/logout");
           navigate("/login");
         }
       }
@@ -324,7 +324,7 @@ const EditProfile = () => {
       setSaveLoading(true);
       try {
         console.log("form:", form);
-        const { data } = await axios.post("/user/registered/saveRegDetails", form);
+        const { data } = await axios.post("http://localhost:8000/user/registered/saveRegDetails", form);
         toast.success("Details saved successfully");
       } catch (error) {
         console.log(error);
@@ -344,7 +344,7 @@ const EditProfile = () => {
     if (check1 && check2) {
       setSaveLoading(true);
       try {
-        const { data } = await axios.post("/user/registered/saveEduDetail", form);
+        const { data } = await axios.post("http://localhost:8000/user/registered/saveEduDetail", form);
         toast.success("Details saved successfully");
       } catch (error) {
         console.log(error);
@@ -366,7 +366,7 @@ const EditProfile = () => {
     if (check1 && check2 && check3) {
       setSaveLoading(true);
       try {
-        const { data } = await axios.post("/user/registered/saveAddDetail", form);
+        const { data } = await axios.post("http://localhost:8000/user/registered/saveAddDetail", form);
         toast.success("Details saved successfully");
       } catch (error) {
         console.log(error);

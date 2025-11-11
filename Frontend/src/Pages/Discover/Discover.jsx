@@ -27,7 +27,7 @@ const Discover = () => {
     const getUser = async () => {
       try {
         setLoading(true);
-        const { data } = await axios.get(`/user/registered/getDetails`);
+        const { data } = await axios.get(`http://localhost:8000/user/registered/getDetails`);
         setUser(data.data);
         localStorage.setItem("userInfo", JSON.stringify(data.data));
       } catch (error) {
@@ -42,7 +42,7 @@ const Discover = () => {
 
     const getDiscoverUsers = async () => {
       try {
-        const { data } = await axios.get("/user/discover");
+        const { data } = await axios.get("http://localhost:8000/user/discover");
 
         setDiscoverUsers(data.data.forYou);
         setWebDevUsers(data.data.webDev);
@@ -64,7 +64,7 @@ const Discover = () => {
         toast.error(error?.response?.data?.message || "Failed to fetch users");
         localStorage.removeItem("userInfo");
         setUser(null);
-        await axios.get("/auth/logout");
+        await axios.get("http://localhost:8000/auth/logout");
         navigate("/login");
       } finally {
         setLoading(false);
