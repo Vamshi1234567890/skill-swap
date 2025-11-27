@@ -3,7 +3,6 @@ import Button from "react-bootstrap/Button";
 import ListGroup from "react-bootstrap/ListGroup";
 import Form from "react-bootstrap/Form";
 import axios from "axios";
-import { toast } from "react-toastify";
 import { useUser } from "../../util/UserContext";
 import Spinner from "react-bootstrap/Spinner";
 import { Link, useNavigate } from "react-router-dom";
@@ -145,25 +144,21 @@ const Chats = () => {
     const handleVideoCallInvitation = (data) => {
       console.log("📞 Incoming video call:", data);
       setIncomingCall(data);
-      toast.info(`Incoming video call from ${data.callerName}`);
     };
 
     const handleVideoCallRejected = (data) => {
       console.log("❌ Call rejected");
-      toast.error("Call was rejected");
       setShowVideoCall(false);
       setIncomingCall(null); // Clear incoming call state
     };
 
     const handleVideoCallAccepted = (data) => {
       console.log("✅ Call accepted");
-      toast.success("Call accepted! Starting video call...");
       joinVideoCall(data.roomId);
     };
 
     const handleVideoCallError = (data) => {
       console.log("🔴 Call error:", data);
-      toast.error(data.message);
       setShowVideoCall(false);
       setIncomingCall(null); // Clear incoming call state
     };
@@ -217,15 +212,12 @@ const Chats = () => {
     } catch (err) {
       console.log(err);
       if (err?.response?.data?.message) {
-        toast.error(err.response.data.message);
         if (err.response.data.message === "Please Login") {
           localStorage.removeItem("userInfo");
           setUser(null);
           await axios.get("/auth/logout");
           navigate("/login");
         }
-      } else {
-        toast.error("Something went wrong");
       }
     } finally {
       setChatLoading(false);
@@ -249,15 +241,12 @@ const Chats = () => {
     } catch (err) {
       console.log(err);
       if (err?.response?.data?.message) {
-        toast.error(err.response.data.message);
         if (err.response.data.message === "Please Login") {
           localStorage.removeItem("userInfo");
           setUser(null);
           await axios.get("/auth/logout");
           navigate("/login");
         }
-      } else {
-        toast.error("Something went wrong");
       }
     } finally {
       setChatMessageLoading(false);
@@ -266,12 +255,10 @@ const Chats = () => {
 
   const sendMessage = async (e) => {
     if (!socketConnected) {
-      toast.error("Connection lost. Please refresh the page.");
       return;
     }
 
     if (!selectedChat) {
-      toast.error("Please select a chat first");
       return;
     }
 
@@ -280,7 +267,6 @@ const Chats = () => {
         socketRef.current.emit("stop typing", selectedChat._id);
       }
       if (message === "") {
-        toast.error("Message is empty");
         return;
       }
       const { data } = await axios.post("/message/sendMessage", { 
@@ -298,15 +284,12 @@ const Chats = () => {
     } catch (err) {
       console.log(err);
       if (err?.response?.data?.message) {
-        toast.error(err.response.data.message);
         if (err.response.data.message === "Please Login") {
           await axios.get("/auth/logout");
           setUser(null);
           localStorage.removeItem("userInfo");
           navigate("/login");
         }
-      } else {
-        toast.error("Something went wrong");
       }
     }
   };
@@ -317,19 +300,15 @@ const Chats = () => {
       const { data } = await axios.get("/request/incoming");
       setRequests(data.data);
       console.log(data.data);
-      toast.success(data.message);
     } catch (err) {
       console.log(err);
       if (err?.response?.data?.message) {
-        toast.error(err.response.data.message);
         if (err.response.data.message === "Please Login") {
           await axios.get("/auth/logout");
           setUser(null);
           localStorage.removeItem("userInfo");
           navigate("/login");
         }
-      } else {
-        toast.error("Something went wrong");
       }
     } finally {
       setRequestLoading(false);
@@ -360,20 +339,16 @@ const Chats = () => {
       setAcceptRequestLoading(true);
       const { data } = await axios.post("/request/accept", { requestId: selectedRequest._id });
       console.log(data);
-      toast.success(data.message);
       setRequests((prevState) => prevState.filter((request) => request._id !== selectedRequest._id));
     } catch (err) {
       console.log(err);
       if (err?.response?.data?.message) {
-        toast.error(err.response.data.message);
         if (err.response.data.message === "Please Login") {
           await axios.get("/auth/logout");
           setUser(null);
           localStorage.removeItem("userInfo");
           navigate("/login");
         }
-      } else {
-        toast.error("Something went wrong");
       }
     } finally {
       setAcceptRequestLoading(false);
@@ -387,20 +362,16 @@ const Chats = () => {
       setAcceptRequestLoading(true);
       const { data } = await axios.post("/request/rejectRequest", { requestId: selectedRequest._id });
       console.log(data);
-      toast.success(data.message);
       setRequests((prevState) => prevState.filter((request) => request._id !== selectedRequest._id));
     } catch (err) {
       console.log(err);
       if (err?.response?.data?.message) {
-        toast.error(err.response.data.message);
         if (err.response.data.message === "Please Login") {
           await axios.get("/auth/logout");
           setUser(null);
           localStorage.removeItem("userInfo");
           navigate("/login");
         }
-      } else {
-        toast.error("Something went wrong");
       }
     } finally {
       setAcceptRequestLoading(false);
@@ -416,12 +387,10 @@ const Chats = () => {
 
   const startVideoCall = async () => {
     if (!selectedChat) {
-      toast.error("Please select a chat first");
       return;
     }
 
     if (!socketConnected) {
-      toast.error("Connection lost. Please refresh the page.");
       return;
     }
 
@@ -444,12 +413,9 @@ const Chats = () => {
       console.log("Video call invitation emitted");
     } else {
       console.error("Socket not connected");
-      toast.error("Connection error. Please refresh the page.");
       setShowVideoCall(false);
       return;
     }
-
-    toast.info("Calling... waiting for recipient to accept");
 
     // Start the call after a short delay
     setTimeout(() => {
@@ -482,7 +448,6 @@ const joinVideoCall = (roomId) => {
       );
     } catch (e) {
       console.error("Failed to generate kit token:", e);
-      toast.error("Video init error (token).");
       return;
     }
 
@@ -508,7 +473,6 @@ const joinVideoCall = (roomId) => {
       // callback when joined (use this instead of .then)
       onJoinRoom: (roomUsers) => {
         console.log("✅ onJoinRoom callback: joined Zego room:", roomId, "users:", roomUsers);
-        toast.success("Successfully joined the call");
       },
 
       // callback when left (optional)
@@ -519,7 +483,6 @@ const joinVideoCall = (roomId) => {
       // generic error callback (important for troubleshooting)
       onError: (err) => {
         console.error("Zego joinRoom onError:", err);
-        toast.error("Failed to join Zego room (see console).");
         // cleanup UI / instance if needed
         if (zegoRef.current) {
           try { zegoRef.current.destroy(); } catch (e) {}
@@ -534,18 +497,15 @@ const joinVideoCall = (roomId) => {
     window.currentCallStartTime = Date.now();
   } catch (err) {
     console.error("joinVideoCall unexpected error:", err);
-    toast.error("Unexpected error joining call");
   }
 };
 
 // ---------- Safe startScreenShare ----------
 const startScreenShare = () => {
   if (!selectedChat) {
-    toast.error("Please select a chat first");
     return;
   }
   if (!socketConnected) {
-    toast.error("Connection lost. Please refresh the page.");
     return;
   }
 
@@ -563,8 +523,6 @@ const startScreenShare = () => {
       isScreenShare: true,
     });
   }
-
-  toast.info("Starting screen share... waiting for recipient to join");
 
   // cleanup previous if exists
   if (zegoRef.current && typeof zegoRef.current.destroy === "function") {
@@ -588,7 +546,6 @@ const startScreenShare = () => {
     );
   } catch (e) {
     console.error("generateKitTokenForTest error:", e);
-    toast.error("Screen share init error (token).");
     setShowVideoCall(false);
     return;
   }
@@ -611,7 +568,6 @@ const startScreenShare = () => {
 
     onError: (err) => {
       console.error("Zego joinRoom (screenshare) onError:", err);
-      toast.error("Failed to start screen share");
       if (zegoRef.current) { try { zegoRef.current.destroy(); } catch(e){} zegoRef.current = null; }
       setShowVideoCall(false);
     }
@@ -663,8 +619,6 @@ const startScreenShare = () => {
         recipientId: callData.callerId
       });
     }
-
-    toast.info("Call rejected");
   };
 
   const endVideoCall = () => {
@@ -1129,14 +1083,12 @@ const startScreenShare = () => {
                 onClick={async (e) => {
                   e.preventDefault();
                   if (scheduleForm.date === "" || scheduleForm.time === "") {
-                    toast.error("Please fill all the fields");
                     return;
                   }
 
                   scheduleForm.username = selectedChat.username;
                   try {
                     const { data } = await axios.post("/user/sendScheduleMeet", scheduleForm);
-                    toast.success("Request mail has been sent successfully!");
                     setScheduleForm({
                       date: "",
                       time: "",
@@ -1144,15 +1096,12 @@ const startScreenShare = () => {
                   } catch (error) {
                     console.log(error);
                     if (error?.response?.data?.message) {
-                      toast.error(error.response.data.message);
                       if (error.response.data.message === "Please Login") {
                         localStorage.removeItem("userInfo");
                         setUser(null);
                         await axios.get("/auth/logout");
                         navigate("/login");
                       }
-                    } else {
-                      toast.error("Something went wrong");
                     }
                   }
                   setScheduleModalShow(false);
