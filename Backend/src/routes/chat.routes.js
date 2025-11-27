@@ -8,7 +8,4 @@ const router = express.Router();
 router.post("/", verifyJWT_username, createChat);
 router.get("/", verifyJWT_username, getChats);
 
-
-// router.get("/:id", verifyJWT_username, getChatById);
-
 export default router;
