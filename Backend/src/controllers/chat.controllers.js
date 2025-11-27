@@ -23,7 +23,7 @@ export const createChat = asyncHandler(async (req, res) => {
     throw new ApiError(500, "Error creating chat");
   }
 
-  return res.status(200).json(new ApiResponse(200, chat, "Chat created successfully"));
+  return res.status(200).json(new ApiResponse(200, chat, ));
 });
 
 export const getChats = asyncHandler(async (req, res) => {
@@ -42,5 +42,5 @@ export const getChats = asyncHandler(async (req, res) => {
     throw new ApiError(500, "Error fetching chats");
   }
 
-  return res.status(200).json(new ApiResponse(200, chats, "Chats fetched successfully"));
+  return res.status(200).json(new ApiResponse(200, chats, ));
 });

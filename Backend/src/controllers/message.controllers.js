@@ -60,7 +60,7 @@ export const sendMessage = asyncHandler(async (req, res) => {
     }
   );
 
-  return res.status(201).json(new ApiResponse(201, message, "Message sent successfully"));
+  return res.status(201).json(new ApiResponse(201, message, ));
 });
 
 export const getMessages = asyncHandler(async (req, res) => {
@@ -71,7 +71,7 @@ export const getMessages = asyncHandler(async (req, res) => {
 
   const messages = await Message.find({ chatId: chatId }).populate("sender", "username name email picture chatId");
 
-  return res.status(200).json(new ApiResponse(200, messages, "Messages fetched successfully"));
+  return res.status(200).json(new ApiResponse(200, messages, ));
 });
 
 export const sendMessageWithFile = asyncHandler(async (req, res) => {
@@ -103,5 +103,5 @@ export const sendMessageWithFile = asyncHandler(async (req, res) => {
 
   await Chat.findByIdAndUpdate(chatId, { latestMessage: message });
 
-  res.status(201).json({ data: message, message: "Message sent successfully" });
+  res.status(201).json({ data: message, message });
 });

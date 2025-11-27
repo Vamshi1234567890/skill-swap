@@ -200,7 +200,7 @@ const Chats = () => {
       setChatLoading(true);
       const tempUser = JSON.parse(localStorage.getItem("userInfo"));
       const { data } = await axios.get("/chat");
-      toast.success(data.message);
+      console.debug("fetchChats: server message:", data.message);
       if (tempUser?._id) {
         const temp = data.data.map((chat) => {
           const otherUser = chat?.users?.find((u) => u?._id !== tempUser?._id);
@@ -245,7 +245,7 @@ const Chats = () => {
         socketRef.current.emit("join chat", chatId);
       }
       
-      toast.success(data.message);
+      console.debug("handleChatClick: server message:", data.message);
     } catch (err) {
       console.log(err);
       if (err?.response?.data?.message) {
@@ -294,7 +294,7 @@ const Chats = () => {
       
       setChatMessages((prevState) => [...prevState, data.data]);
       setMessage("");
-      toast.success(data.message);
+      console.debug("sendMessage: server message:", data.message);
     } catch (err) {
       console.log(err);
       if (err?.response?.data?.message) {
