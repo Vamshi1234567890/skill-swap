@@ -34,7 +34,6 @@ const ReportForm = () => {
     try {
       setLoading(true);
       const { data } = await axios.post(`http://localhost:8000/report/create`, formData);
-      toast.success(data.message);
       setFormData((prevState) => {
         return {
           ...formData,

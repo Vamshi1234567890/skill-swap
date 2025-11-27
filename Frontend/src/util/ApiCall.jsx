@@ -12,16 +12,12 @@ const ApiCall = async (url, method, navigate, setUser, data) => {
       console.error("Error in API call:", error);
       setUser(null);
       if (error.response.status === 401) {
-        toast.error("You are not authorized to access this page. Please login first.");
         navigate("/login");
       } else if (error.response.status === 404) {
-        toast.error("The requested resource was not found.");
         navigate("/");
       } else if (error.response.status === 500) {
-        toast.error("Server Error. Please try again later.");
         navigate("/");
       } else {
-        toast.error("An error occurred. Please try again later.");
         navigate("/");
       }
     }

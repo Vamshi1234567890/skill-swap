@@ -38,7 +38,6 @@ const Rating = () => {
         username: user.username,
       });
       console.log(data);
-      toast.success(data.message);
       setRating(0);
       setReview("");
     } catch (error) {

@@ -157,7 +157,6 @@ const Chats = () => {
 
     const handleVideoCallAccepted = (data) => {
       console.log("✅ Call accepted");
-      toast.success("Call accepted! Starting video call...");
       joinVideoCall(data.roomId);
     };
 
@@ -200,7 +199,6 @@ const Chats = () => {
       setChatLoading(true);
       const tempUser = JSON.parse(localStorage.getItem("userInfo"));
       const { data } = await axios.get("/chat");
-      console.debug("fetchChats: server message:", data.message);
       if (tempUser?._id) {
         const temp = data.data.map((chat) => {
           const otherUser = chat?.users?.find((u) => u?._id !== tempUser?._id);
@@ -244,8 +242,6 @@ const Chats = () => {
       if (socketRef.current && socketConnected) {
         socketRef.current.emit("join chat", chatId);
       }
-      
-      console.debug("handleChatClick: server message:", data.message);
     } catch (err) {
       console.log(err);
       if (err?.response?.data?.message) {
@@ -294,7 +290,6 @@ const Chats = () => {
       
       setChatMessages((prevState) => [...prevState, data.data]);
       setMessage("");
-      console.debug("sendMessage: server message:", data.message);
     } catch (err) {
       console.log(err);
       if (err?.response?.data?.message) {
@@ -317,7 +312,6 @@ const Chats = () => {
       const { data } = await axios.get("/request/incoming");
       setRequests(data.data);
       console.log(data.data);
-      toast.success(data.message);
     } catch (err) {
       console.log(err);
       if (err?.response?.data?.message) {
@@ -360,7 +354,6 @@ const Chats = () => {
       setAcceptRequestLoading(true);
       const { data } = await axios.post("/request/accept", { requestId: selectedRequest._id });
       console.log(data);
-      toast.success(data.message);
       setRequests((prevState) => prevState.filter((request) => request._id !== selectedRequest._id));
     } catch (err) {
       console.log(err);
@@ -387,7 +380,6 @@ const Chats = () => {
       setAcceptRequestLoading(true);
       const { data } = await axios.post("/request/rejectRequest", { requestId: selectedRequest._id });
       console.log(data);
-      toast.success(data.message);
       setRequests((prevState) => prevState.filter((request) => request._id !== selectedRequest._id));
     } catch (err) {
       console.log(err);
@@ -508,7 +500,6 @@ const joinVideoCall = (roomId) => {
       // callback when joined (use this instead of .then)
       onJoinRoom: (roomUsers) => {
         console.log("✅ onJoinRoom callback: joined Zego room:", roomId, "users:", roomUsers);
-        toast.success("Successfully joined the call");
       },
 
       // callback when left (optional)
@@ -1136,7 +1127,6 @@ const startScreenShare = () => {
                   scheduleForm.username = selectedChat.username;
                   try {
                     const { data } = await axios.post("/user/sendScheduleMeet", scheduleForm);
-                    toast.success("Request mail has been sent successfully!");
                     setScheduleForm({
                       date: "",
                       time: "",
