@@ -27,8 +27,8 @@ const VideoCallPage = () => {
         
         if (data.success) {
           // Join the call
-          const appID = 1231668758;
-          const serverSecret = "b5dc42868e71e958eb91e222ce7b000f";
+          const appID = 843454973;
+    const serverSecret = "81b9e533ea08541d76bd668d2b4e388f";
 
           const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
             appID,

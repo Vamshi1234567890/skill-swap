@@ -459,8 +459,8 @@ const joinVideoCall = (roomId) => {
       zegoRef.current = null;
     }
 
-    const appID = 1231668758;
-    const serverSecret = "b5dc42868e71e958eb91e222ce7b000f";
+    const appID = 843454973;
+    const serverSecret = "81b9e533ea08541d76bd668d2b4e388f";
 
     // generate token for testing
     let kitToken;
@@ -555,7 +555,7 @@ const startScreenShare = () => {
     });
   }
 
-  toast.info("Starting screen share... waiting for recipient to join");
+  // toast.info("Starting screen share... waiting for recipient to join");
 
   // cleanup previous if exists
   if (zegoRef.current && typeof zegoRef.current.destroy === "function") {
@@ -565,8 +565,8 @@ const startScreenShare = () => {
   }
 
   // same token flow
-  const appID = 1231668758;
-  const serverSecret = "b5dc42868e71e958eb91e222ce7b000f";
+  const appID = 843454973;
+    const serverSecret = "81b9e533ea08541d76bd668d2b4e388f";
 
   let kitToken;
   try {

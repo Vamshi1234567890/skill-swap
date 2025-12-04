@@ -356,60 +356,51 @@ const Register = () => {
     return flag;
   };
   
-  const handleSaveRegistration = async () => {
-    const check = validateRegForm();
-    if (check) {
-      setSaveLoading(true);
-      try {
-        await axios.post("http://localhost:8000/user/unregistered/saveRegDetails", form);
-        toast.success("Registration details saved successfully");
-      } catch (error) {
-        console.log(error);
-        toast.error(error.response?.data?.message || "Some error occurred");
-      } finally {
-        setSaveLoading(false);
-      }
-    }
-  };
-  
-  const handleSaveEducation = async () => {
+  const handleSaveRegistration = async () => {
+    const check = validateRegForm();
+    if (check) {
+      setSaveLoading(true);
+      try {
+        await axios.post("http://localhost:8000/user/unregistered/saveRegDetails", form);
+      } catch (error) {
+        console.log(error);
+        toast.error(error.response?.data?.message || "Some error occurred");
+      } finally {
+        setSaveLoading(false);
+      }
+    }
+  };  const handleSaveEducation = async () => {
     const check1 = validateRegForm();
     const check2 = validateEduForm();
-    if (check1 && check2) {
-      setSaveLoading(true);
-      try {
-        await axios.post("http://localhost:8000/user/unregistered/saveEduDetail", form);
-        toast.success("Education details saved successfully");
-      } catch (error) {
-        console.log(error);
-        toast.error(error.response?.data?.message || "Some error occurred");
-      } finally {
-        setSaveLoading(false);
-      }
-    }
-  };
-  
-  const handleSaveAdditional = async () => {
+    if (check1 && check2) {
+      setSaveLoading(true);
+      try {
+        await axios.post("http://localhost:8000/user/unregistered/saveEduDetail", form);
+      } catch (error) {
+        console.log(error);
+        toast.error(error.response?.data?.message || "Some error occurred");
+      } finally {
+        setSaveLoading(false);
+      }
+    }
+  };  const handleSaveAdditional = async () => {
     const check1 = validateRegForm();
     const check2 = validateEduForm();
     // validateAddForm is synchronous, no need for await
     const check3 = validateAddForm(); 
     
     if (check1 && check2 && check3) {
-      setSaveLoading(true);
-      try {
-        await axios.post("http://localhost:8000/user/unregistered/saveAddDetail", form);
-        toast.success("Additional details saved successfully");
-      } catch (error) {
-        console.log(error);
-        toast.error(error.response?.data?.message || "Some error occurred");
-      } finally {
-        setSaveLoading(false);
-      }
-    }
-  };
-
-  // 🚨 FINAL SUBMISSION TO COMPLETE REGISTRATION 🚨
+      setSaveLoading(true);
+      try {
+        await axios.post("http://localhost:8000/user/unregistered/saveAddDetail", form);
+      } catch (error) {
+        console.log(error);
+        toast.error(error.response?.data?.message || "Some error occurred");
+      } finally {
+        setSaveLoading(false);
+      }
+    }
+  };  // 🚨 FINAL SUBMISSION TO COMPLETE REGISTRATION 🚨
   const handleFinalSubmit = async () => {
     // 1. Run all validations (removed await from synchronous calls)
     const check1 = validateRegForm();

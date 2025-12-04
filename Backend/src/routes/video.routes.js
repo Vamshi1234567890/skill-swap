@@ -33,7 +33,7 @@ router.get("/:roomId", (req, res) => {
         chatId,
         timestamp: Date.now(),
         // Add any other room metadata you need
-        zegoAppId: process.env.ZEGO_APP_ID || 1231668758,
+        zegoAppId: process.env.ZEGO_APP_ID || 843454973,
         // You could also generate the token here if needed
       }
     });
@@ -59,8 +59,8 @@ router.post("/generate-token",  (req, res) => {
       });
     }
 
-    const appID = process.env.ZEGO_APP_ID || 1231668758;
-    const serverSecret = process.env.ZEGO_SERVER_SECRET || "b5dc42868e71e958eb91e222ce7b000f";
+    const appID = process.env.ZEGO_APP_ID || 843454973;
+    const serverSecret = process.env.ZEGO_SERVER_SECRET || "81b9e533ea08541d76bd668d2b4e388f";
 
     // In a real implementation, you'd generate the token server-side
     // For now, we'll return the credentials and let frontend generate the token
