@@ -22,6 +22,7 @@ export const createRequest = asyncHandler(async (req, res, next) => {
     throw new ApiError(400, "Request already exists");
   }
 
+  
   const receiver = await Request.create({
     sender: senderID,
     receiver: receiverID,

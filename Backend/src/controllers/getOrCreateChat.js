@@ -12,3 +12,4 @@ export const getOrCreateChat = asyncHandler(async (req, res) => {
   const chat = await Chat.create({ users });
   return res.status(200).json(new ApiResponse(200, chat, "Chat created successfully"));
 });
+

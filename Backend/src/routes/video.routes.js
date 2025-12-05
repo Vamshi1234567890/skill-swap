@@ -59,6 +59,7 @@ router.post("/generate-token",  (req, res) => {
       });
     }
 
+    
     const appID = process.env.ZEGO_APP_ID || 843454973;
     const serverSecret = process.env.ZEGO_SERVER_SECRET || "81b9e533ea08541d76bd668d2b4e388f";
 

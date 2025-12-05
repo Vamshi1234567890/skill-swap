@@ -22,4 +22,5 @@ const ratingSchema = new Schema(
   { timestamps: true }
 );
 
+
 export const Rating = mongoose.model("Rating", ratingSchema);

@@ -20,6 +20,7 @@ export const rateUser = asyncHandler(async (req, res) => {
   }
   const rateGiver = req.user._id;
 
+  
   console.log("rateGiver: ", rateGiver);
   console.log("user: ", user._id);
 

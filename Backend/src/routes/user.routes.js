@@ -19,6 +19,7 @@ import { upload } from "../middlewares/multer.middleware.js";
 
 const router = Router();
 
+
 // save and register unregistered user details
 router.route("/unregistered/getDetails").get(verifyJWT_email, UnRegisteredUserDetails);
 router.route("/unregistered/saveRegDetails").post(verifyJWT_email, saveRegUnRegisteredUser);

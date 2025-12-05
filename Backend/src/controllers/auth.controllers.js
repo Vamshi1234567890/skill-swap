@@ -65,3 +65,4 @@ export const handleLogout = (req, res) => {
   res.clearCookie("accessToken");
   return res.status(200).json(new ApiResponse(200, null, "User logged out successfully"));
 };
+

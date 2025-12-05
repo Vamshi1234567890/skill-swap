@@ -24,6 +24,7 @@ router.route("/users").get(
         if (!users || users.length === 0) {
             throw new ApiError(404, "No users found on the platform.");
         }
+        
 
         return res
             .status(200)

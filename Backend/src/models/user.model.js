@@ -23,6 +23,7 @@ const userSchema = new Schema(
       type: Number,
       default: 0,
     },
+
     linkedinLink: {
       type: String,
       default: "",

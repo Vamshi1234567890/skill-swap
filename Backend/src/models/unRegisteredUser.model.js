@@ -22,6 +22,7 @@ const unRegisteredUserSchema = new Schema(
       type: String,
       default: "",
     },
+    
 
     githubLink: {
       type: String,

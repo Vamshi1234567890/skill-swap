@@ -17,6 +17,7 @@ const verifyJWT_email = asyncHandler(async (req, res, next) => {
       throw new ApiError(401, "Please Login");
     }
 
+
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
     const user = await UnRegisteredUser.findOne({ email: decodedToken?.email }).select(
       "-_id -__v -createdAt -updatedAt"

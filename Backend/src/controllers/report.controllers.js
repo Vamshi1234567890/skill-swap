@@ -23,6 +23,7 @@ export const createReport = asyncHandler(async (req, res, next) => {
     return next(new ApiError(400, "User not found"));
   }
 
+  
   const chat = await Chat.findOne({
     users: {
       $all: [reported._id, reporter._id],

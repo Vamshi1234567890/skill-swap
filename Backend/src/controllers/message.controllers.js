@@ -27,6 +27,7 @@ export const sendMessage = asyncHandler(async (req, res) => {
   if (!check.users.includes(sender)) {
     throw new ApiError(400, "Chat is not approved");
   }
+  
 
   // console.log("Chat ID: ", chatId);
 

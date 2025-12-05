@@ -8,3 +8,4 @@ router.post("/rateUser", verifyJWT_username, rateUser);
 // router.get("/getRatings/:username", verifyJWT_username, getRatings);
 
 export default router;
+

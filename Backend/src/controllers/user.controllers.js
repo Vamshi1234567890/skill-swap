@@ -23,6 +23,7 @@ export const UserDetails = asyncHandler(async (req, res) => {
     throw new ApiError(404, "User not found");
   }
 
+
   const receiverID = user._id;
   const senderID = req.user._id;
   const request = await Request.find({
