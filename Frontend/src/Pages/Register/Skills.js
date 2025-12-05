@@ -78,4 +78,5 @@ export const skills = [
   "Natural Language Processing",
   "Deep Learning",
   "PyTorch",
+  "Guitar"
 ];

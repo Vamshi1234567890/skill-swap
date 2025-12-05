@@ -19,6 +19,7 @@ Authentication: JWT, Google OAuth (Passport.js or custom), OTP via SMS/email (pr
 Realtime: Socket.IO (or Firebase Realtime / Pusher)
 
 
+
 Architecture
 
 SkillSwap follows a modular MERN architecture:
